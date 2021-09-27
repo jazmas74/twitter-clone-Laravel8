@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: ./docker/php
+      dockerfile: Dockerfile
+    volumes:
+      - ./src/:/var/www/html
+    environment:
+      - DB_HOST=db
+      - DB_USERNAME=my_user
+      - DB_DATABASE=my_database
+      - DB_PASSWORD=my_password
+ 
+  web:
+    build:
+      context: ./docker/nginx
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    tty: true
+    stdin_open: true
+    volumes:
+      - ./src/:/var/www/html
+    depends_on:
+      - db
+      - app
+
+  db:
+    image: docker.io/bitnami/mariadb:10.2
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+      - MARIADB_USER=my_user
+      - MARIADB_DATABASE=my_database
+      - MARIADB_PASSWORD=my_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - /var/lib/mysql
+      - /var/log/mysql
+     
+  pma:
+    image: phpmyadmin/phpmyadmin:5.1.1
+    environment:
+      - PMA_HOST=db
+      - PMA_USER=my_user
+      - PMA_PASSWORD=my_password
+    ports:
+      - 8080:80
+    volumes:
+      - /sessions
