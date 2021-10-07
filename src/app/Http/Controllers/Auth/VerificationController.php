@@ -23,10 +23,8 @@ class VerificationController extends Controller
 
     /**
      * Where to redirect users after verification.
-     *
-     * @var string
      */
-    protected $redirectTo = '/tweets';
+    protected string $redirectTo = '/tweets';
 
     /**
      * Create a new controller instance.
