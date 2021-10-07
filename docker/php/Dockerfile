@@ -1,6 +1,4 @@
-FROM node:16-alpine as node
-
-FROM php:7.3.11-fpm
+FROM php:8.0.11-fpm
 
 # COPY php.ini
 COPY ./php.ini /usr/local/etc/php/php.ini
@@ -25,10 +23,10 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 # RUN npm install npm@latest -g
 
-
 # RUN npm install -g yarn --force
+
 #xdebug install
-RUN pecl install xdebug-3.0.4 && docker-php-ext-enable xdebug
-ENV PHP_IDE_CONFIG 'serverName=localhost'
-ENV XDEBUG_CONFIG 'client_host=host.docker.internal'
+# RUN pecl install xdebug-3.0.4 && docker-php-ext-enable xdebug
+# ENV PHP_IDE_CONFIG 'serverName=localhost'
+# ENV XDEBUG_CONFIG 'client_host=host.docker.internal'
 WORKDIR /var/www/html
