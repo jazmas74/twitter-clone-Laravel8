@@ -20,7 +20,10 @@
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^5.0",
-        "phpunit/phpunit": "^9.3.3"
+        "nunomaduro/larastan": "^0.7.12",
+        "phpstan/phpstan": "^0.12.99",
+        "phpunit/phpunit": "^9.3.3",
+        "rector/rector": "^0.11.57"
     },
     "autoload": {
         "psr-4": {
@@ -55,6 +58,7 @@
         }
     },
     "config": {
+
         "optimize-autoloader": true,
         "preferred-install": "dist",
         "sort-packages": true
