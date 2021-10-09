@@ -9,4 +9,4 @@ parameters:
         - database
         - resources/views
         - routes
-    level: 0
+    level: 2
