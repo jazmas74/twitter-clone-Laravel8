@@ -54,9 +54,9 @@ class User extends Authenticatable
         return $this->belongsToMany(self::class, 'followers', 'following_id', 'followed_id');
     }
 
-    public function getAllUsers(Int $user_id)
+    public function getAllUsers(User $user)
     {
-        return $this->Where('id', '<>', $user_id)->paginate(5);
+        return $this->Where('id', '<>', $user->id)->paginate(5);
     }
     // フォローする
     public function follow(Int $user_id)
