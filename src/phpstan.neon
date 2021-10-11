@@ -9,4 +9,5 @@ parameters:
         - database
         - resources/views
         - routes
-    level: 2
+    level: 5
+    checkMissingIterableValueType: false
