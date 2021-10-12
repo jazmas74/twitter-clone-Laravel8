@@ -8,33 +8,14 @@ use Rector\Core\Configuration\Option;
 use Rector\Php74\Rector\Property\TypedPropertyRector;
 use Rector\Set\ValueObject\SetList;
 use Rector\Laravel\Set\LaravelSetList;
+
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-// use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
-    // get parameters
+    $containerConfigurator->import(SetList::PHP_74);
     $containerConfigurator->import(LaravelSetList::LARAVEL_80);
+    // get parameters
     $parameters = $containerConfigurator->parameters();
-    $parameters->set(Option::SKIP, [
-    //     // absolute directory
-         __DIR__ . '/vendor',
-
-    //     // absolute file
-    //     // __DIR__ . '/some-path/some-file.php',
-
-    //     // with mask
-    //     // '*/Fixture/*',
-
-    //     // specific class
-    //     Orchestra\Testbench\Concerns\CreatesApplication::class,
-    //     // SomeClass::class,
-
-    //     // specific class specific path
-    //     // NarrowedClass::class => [__DIR__ . '/src/OnlyHere'],
-
-    //     // class code in paths
-    //     // AnotherSniff::class . '.SomeCode' => ['*Sniff.php', '*YamlFileLoader.php'],
-    ]);
     $parameters->set(Option::PATHS, [
         __DIR__ . '/app',
         __DIR__ . '/bootstrap',
@@ -42,14 +23,24 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         __DIR__ . '/database',
         __DIR__ .'/resources/views',
         __DIR__ . '/routes'
-        ]);
-        $parameters->set(Option::PHP_VERSION_FEATURES, PhpVersion::PHP_80);
-    // // Define what rule sets will be applied
-    $containerConfigurator->import(SetList::PHP_80);
+    ]);
 
-    // get services (needed for register a single rule)
-    // $services = $containerConfigurator->services();
+    $parameters->set(Option::SKIP, [
+    __DIR__ . '/vendor',
+    // __DIR__ . '/codeception',
 
-    // register a single rule
-    // $services->set(TypedPropertyRector::class);
+    TypedPropertyRector::class ,
+
+    ]);
+
+    // Define what rule sets will be applied
+    $parameters->set(Option::PHP_VERSION_FEATURES,  PhpVersion::PHP_74); // 適宜変更
+    // $parameters->set(Option::AUTOLOAD_PATHS, [
+    //     __DIR__ . '/vendor'
+
+    // ]);
+
 };
+
+
+
