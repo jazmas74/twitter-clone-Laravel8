@@ -3,7 +3,7 @@ version: '3.8'
 services:
   app:
     build:
-      context: ./docker/php
+      context: docker/php
       dockerfile: Dockerfile
     volumes:
       - ./src/:/var/www/html
@@ -15,7 +15,7 @@ services:
  
   web:
     build:
-      context: ./docker/nginx
+      context: docker/nginx
       dockerfile: Dockerfile
     ports:
       - "80:80"
@@ -28,13 +28,14 @@ services:
       - app
 
   db:
-    image: docker.io/bitnami/mariadb:10.2
+    image: mariadb:10.6.4
     environment:
       # ALLOW_EMPTY_PASSWORD is recommended only for development.
       - ALLOW_EMPTY_PASSWORD=yes
-      - MARIADB_USER=my_user
-      - MARIADB_DATABASE=my_database
-      - MARIADB_PASSWORD=my_password
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=my_user
+      - MYSQL_PASSWORD=my_password
+      - MYSQL_DATABASE=my_database
     ports:
       - "3306:3306"
     volumes:
